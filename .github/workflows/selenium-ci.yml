@@ -19,4 +19,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Selenium tests
-        run: pytest tests/ --maxfail=1 --disable-warnings -v
+        run: pytest --maxfail=1 --disable-warnings -v
