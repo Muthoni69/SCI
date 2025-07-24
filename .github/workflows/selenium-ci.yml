@@ -18,5 +18,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run Selenium tests
-        run: pytest --maxfail=1 --disable-warnings -v --html=report.html
+      - name: Run Selenium tests and generate HTML report
+        run: |
+            pytest tests/ --maxfail=1 --disable-warnings -v --html=report.html
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+            name: selenium-report
+            path: report.html
