@@ -1,6 +1,8 @@
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.common.by import By
 import pytest
@@ -33,7 +35,9 @@ def test_login_failure(driver):
     driver.find_element(By.ID, "password").send_keys("wrongpass")
     driver.find_element(By.ID, "submit").click()
 
-    error_msg = driver.find_element(By.ID, "error").text
+    wait = WebDriverWait(driver, 10)
+    error_element = wait.until(EC.visibility_of_element_located((By.ID, "error")))
+    error_msg = error_element.text
     assert "Your username is invalid!" in error_msg
 
 
